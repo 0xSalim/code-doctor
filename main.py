@@ -52,14 +52,18 @@ def generate_repo_readme(repo_url: str):
         memory=memory,
     )
 
-    question = f"""You are tasked to document the following repository: {repo_url}.
-Let's work this out in a step by step way to be sure we have the right answer.
-Your tasks are the following:
-1. Clone the repository with the appropriate tool. The repository files will directly be cloned in the working directory.
-2. Read and understand what the repository does, by listing all files in `.`, and by reading all files and summarizing them.
-3. Create a file named `BETTER_README.md`, that describes the project, what it does, and how to use it, in a Markdown format. This file should allow anyone to understand and use the project.
-"""
+    clone_command = f"Clone the repository `{repo_url}` with the appropriate tool. The repository files will directly be cloned in the working directory."
+    conversational_agent.run(clone_command)
+    time.sleep(1)
 
-    print(question)
-    conversational_agent.run(question)
+    read_command = "Read EVERY code file and summarize them. Do not read the `LICENSE` file."
+    conversational_agent.run(read_command)
+    time.sleep(1)
+
+    write_command = """You are tasked to document the repository in a file named `BETTER_README.md`.
+Let's work this out in a step by step way to be sure we have the right answer.
+1. Create a documentation template in Markdown, that follows best practices for an open source project documentation.
+2. Fill the template with the project details. 
+3. Make sure that this documentation describes the project, what it does, and how to use it. This documentation should allow anyone to understand and use the project."""
+    conversational_agent.run(write_command)
     time.sleep(100)

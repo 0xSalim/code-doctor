@@ -8,6 +8,16 @@ working_directory = TemporaryDirectory()
 
 toolkit = FileManagementToolkit(root_dir=str(working_directory.name))
 
+(
+    copy_file_tool,
+    delete_file_tool,
+    search_file_tool,
+    move_file_tool,
+    read_file_tool,
+    write_file_tool,
+    list_directory_tool,
+) = toolkit.get_tools()
+
 
 def git_clone_repo(inp: str) -> str:
     subprocess.run(["git", "clone", inp, f"{working_directory.name}"])
@@ -55,14 +65,3 @@ git_commit_tool: Tool = Tool(
     func=git_commit_repo,
     description="useful for committing into a repository",
 )
-
-
-(
-    copy_file_tool,
-    delete_file_tool,
-    search_file_tool,
-    move_file_tool,
-    read_file_tool,
-    write_file_tool,
-    list_directory_tool,
-) = toolkit.get_tools()
